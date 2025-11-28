@@ -286,14 +286,7 @@ You'll need to manually take these screenshots and add them to your repo (e.g., 
 - **App working UI** – browser screenshot showing the CRUD interface.
 - **Nginx & Infra** – diagram or screenshot showing services on your VM.
 
-You can then reference them in this `README.md` like:
 
-```markdown
-![CI/CD Workflow](screenshots/cicd-workflow.png)
-![Deployed App](screenshots/app-ui.png)
-```
-
----
 
 ## 11. Notes
 
