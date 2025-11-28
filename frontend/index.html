@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" ng-app="crudApp">
+<head>
+  <meta charset="utf-8">
+  <title>CRUD DD Task - MEAN Frontend</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- AngularJS CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="MainController as vm">
+  <div class="container">
+    <h1>CRUD DD Task - Item Manager</h1>
+    <p class="subtitle">Simple MEAN-style CRUD app (AngularJS + Node + MongoDB)</p>
+
+    <div class="form-card">
+      <h2>{{ vm.editMode ? 'Edit Item' : 'Add New Item' }}</h2>
+      <form ng-submit="vm.saveItem()">
+        <label>
+          Name
+          <input type="text" ng-model="vm.form.name" required placeholder="Enter item name" />
+        </label>
+        <label>
+          Description
+          <textarea ng-model="vm.form.description" placeholder="Enter description"></textarea>
+        </label>
+        <div class="btn-row">
+          <button type="submit" class="btn primary">
+            {{ vm.editMode ? 'Update' : 'Create' }}
+          </button>
+          <button type="button" class="btn secondary" ng-click="vm.resetForm()" ng-if="vm.editMode">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="list-card">
+      <h2>Items</h2>
+      <div class="status" ng-if="vm.loading">Loading items...</div>
+      <div class="status error" ng-if="vm.error">{{ vm.error }}</div>
+      <div class="status" ng-if="!vm.loading && vm.items.length === 0">No items yet. Add one above.</div>
+
+      <ul class="item-list">
+        <li class="item" ng-repeat="item in vm.items">
+          <div class="item-main">
+            <h3>{{ item.name }}</h3>
+            <p ng-if="item.description">{{ item.description }}</p>
+            <p class="meta">Created: {{ item.createdAt | date:'medium' }}</p>
+          </div>
+          <div class="item-actions">
+            <button class="btn small" ng-click="vm.startEdit(item)">Edit</button>
+            <button class="btn small danger" ng-click="vm.deleteItem(item)">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
